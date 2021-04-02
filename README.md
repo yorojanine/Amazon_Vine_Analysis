@@ -23,7 +23,7 @@ In this report, there were many moving pieces that came into play:
 4.  Toggling back to the notebook, a new code block was written to connect to the AWS RDS instance to PostgreSQL so that it can write the data/dataframe to its table.
      -  For two of the dataframes, they were able to write to their respective table without issue. ![](resources/D1_customer.PNG) ![](resources/D1_review.PNG) 
      -  However, I ran into a few challenges with the remaining two and spent a good majority of time trying to troubleshoot.
-     -  For the products_table, I kept receiving an error due to duplicate values. However, within the code, I had included .drop_duplicates() - so I was unsure of how I was getting that error. So I tried trimming the product_id and product_title, in case there was white space being accounted. However, that still provided me errors. So, next I wanted to check which values and how many were actually hitting as a duplicate. So I ran a code block to check those counts and sure enough, I had at least two product ideas that had either 354 duplicates or 404 dupes. In order to fix this I had to add subset in my code `.drop_duplicates(subset = ["product_id"])`
+     -  For the products_table, I kept receiving an error due to duplicate values. However, within the code, I had included .drop_duplicates() - so I was unsure of how I was getting that error. So I tried trimming the product_id and product_title, in case there was white space being accounted. However, that still provided me errors. So, next I wanted to check which values and how many were actually hitting as a duplicate. So I ran a code block to check those counts and sure enough, I had at least two product ids that had either 354 duplicates or 404 dupes. In order to fix this I had to add subset in my code `.drop_duplicates(subset = ["product_id"])`
      -  Running my dupes check again, it was only showing one instance of the product_id and was able to write into the table. ![](resources/TroubleProduct.PNG) 
         ![](resources/D1_product.PNG)
      -  Next, I was having issues related to the vine_table about datatypes mismatching. So I applied to the following as part of troubleshoot: ![](resources/TroubleVine.PNG) 
@@ -40,17 +40,16 @@ In the original dataset (vine_table), there were a total of 4,850,360 sports rev
 ![](resources/D2_Part2.PNG)
 
 Next, using this filtered dataset and SQL queries, the aim is to answer the following questions:<br>
-1. <i>How many Vine reviews (PAID) and non-Vine reviews (UNPAID) were there?</i><br>
-    Of the 61,948 reviews, 334 were paid vine reviews whereas the remaining 61,614 reviews were unpaid non-vine reviews. ![](resources/D2_Part3.PNG)
-![](resources/D2_Part4.PNG)
-2. 
+1. <i><b>How many Vine reviews (PAID) and non-Vine reviews (UNPAID) were there?</i></b><br>
+    Of the 61,948 reviews, **334** were paid vine reviews whereas the remaining **61,614** reviews were unpaid non-vine reviews. 
+    ![](resources/D2_Part3.PNG)
+    ![](resources/D2_Part4.PNG)
+    <br>
+2. <i><b>How many Vine reviews were 5 stars? How many non-Vine reviews were 5 stars?</i></b><br>
+    **139** paid vine reviews were 5 stars, while **32,665** unpaid non-vine reviews were 5 stars.
 
-
-How many Vine reviews were 5 stars? How many non-Vine reviews were 5 stars?<br>
-What percentage of Vine reviews were 5 stars? What percentage of non-Vine reviews were 5 stars?</i>
-
-
-
+3. <i><b>What percentage of Vine reviews were 5 stars? What percentage of non-Vine reviews were 5 stars?</i></b><br>
+    Based on the 334 paid vine reviews, 42% (139 reviews) were identified as a 5 star review. Concurrently, of the 61,614 unpaid non-vine reviews, 53% (32,665 reviews) were identified as a 5 star review. <br>
 ![](resources/D2_Part5_A.PNG)
 ![](resources/D2_Part5_B.PNG)
 
