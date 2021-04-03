@@ -96,4 +96,4 @@ As a solution: I have **temporarily** made the csv file available using the Amaz
 https://janineyoro-bucket.s3.amazonaws.com/vine_table.csv
 
 
-<span style="color:red"><b>Note for the grader: Please advise if a resubmission is necessary to complete the challenge.</b></span>
+### Note for the grader: Please advise if a resubmission is necessary to complete the challenge.
