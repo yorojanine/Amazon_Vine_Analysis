@@ -1,6 +1,7 @@
 /* DELIVERABLE 2 */
 
-SELECT COUNT(*) FROM vine_table;
+SELECT COUNT(*) FROM vine_table; --4,850,360
+
 /* Filter the data and create a new DataFrame or table to retrieve all the rows 
 where the total_votes count is equal to or greater than 20 to pick reviews that are 
 more likely to be helpful and to avoid having division by zero errors later on. */
