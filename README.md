@@ -95,4 +95,5 @@ It seems that I had exceeded the data quota and didn't want to purchase extra sp
 As a solution: I have **temporarily** made the csv file available using the Amazon S3 service, with the file available for download here:
 https://janineyoro-bucket.s3.amazonaws.com/vine_table.csv
 
-Note for the grader: Please advise if a resubmission is necessary to complete the challenge.
+
+<span style="color:red"><b>Note for the grader: Please advise if a resubmission is necessary to complete the challenge.</b></span>
