@@ -72,17 +72,27 @@ Further, I think in order to strengthen the conclusion if a positivity bias exis
 * Uploading the `vine_table.csv` file to the Github repository was causing an issue. 
 
 Due to the size of the csv file, I originally tried to push it to the repository using `git lfs track "*.csv` and was prompted with the following error:
+<br>
+![](resources/errorPrompt.png)
+It seems that I had exceeded the data quota and didn't want to purchase extra space. As a solution, I tried reaching out to one of the teaching instructors to come up with a work-around. The following notes the steps we took to resolve the issue:
+ 
+   1. Tried deleting older csv files from previous modules to free up space. The file deleted but there was no change to the amount of storage available.
+   2. Tried to reclone this old repository (now without the previous csv file). Using `ls -a` it showed that .gitattributes was still in the repository, which explains why there was no change in storage. So the next line of action was to try and remove the .gitattributes to remove the lfs tracking.
+        - tried using `git lfs uninstall` and then `git push` to update the repository; but this didn't work
+        - source https://docs.github.com/en/enterprise-server@2.21/github/managing-large-files/removing-files-from-git-large-file-storage
+        - since that didn't work, the next option was to try the BFG Repo-Cleaner (source: https://rtyley.github.io/bfg-repo-cleaner/)
+                - I had to download the BFG Repo-Cleaner, but it downloaded as a .`jar` file & I didn't have a system to open a `.jar` file
+                - So I downloaded WinRAR to try and open the jar file (https://www.win-rar.com/downloadond.html?&L=0)
+                - I was able to open the jar file, but the .`exe` was unavailable to install the BFG Repo-Cleaner
+                - So, it was back to finding a different solution
+        - The next step was trying to remove the contents of the .gitattributes file, so I navigated to the file through vs code to open the .gitattributes file.
+                - In the file, I deleted all the contents to untrack the lfs of this old csv file
+                - tried to [push everything back](https://github.com/yorojanine/Amazon_Vine_Analysis/blob/main/resources/vscode_step.PNG) to the repository, but still no change to the storage space 
+        -  Tried using filter-branch & that made no impact to the storage space issue.
+   3.   It seemed that all the options were exhausted and was unable to free up any space in my github repository to ultimately upload my `vine_table.csv`
+   
 
-<insert screen shot>
-    
-It seems that I had exceeded the <x> loading capacity,
-    worked with the TA to try a work around 
-    (1) tried to delete csv files from older modules to free-up space in github - but the .gitattributes still exists
-    cloned the repository , git pull, did the uninstall , tried the git push
-    
-    tried doing a lfs uninstall 
-
-
-
-As a solution: I have temporarily made the csv file available using the Amazon S3 service, with the file available for download here:
+As a solution: I have **temporarily** made the csv file available using the Amazon S3 service, with the file available for download here:
 https://janineyoro-bucket.s3.amazonaws.com/vine_table.csv
+
+Note for the grader: Please advise if a resubmission is necessary to complete the challenge.
