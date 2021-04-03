@@ -35,6 +35,8 @@ In this report, there were many moving pieces that came into play:
 Using our knowledge of PySpark, Pandas, or SQL, we needed to determine if there was any bias towards reviews that were written as part of the Vine program. For this analysis,
 I choose SQL to continue with the reporting.
 
+By choosing SQL, I did the following: (1) exported the vine_table from the "deliverable1" database as a csv file (2) created a new database in my localhost called "postgres" (3) using the same schema, built a new vine_table (4) imported the newly created csv file (5) ran the queries noted below.
+
 In the original dataset (vine_table), there were a total of 4,850,360 sports reviews. In order for the data to be helpful, filtering was applied to look at total_votes equal (=) or greater than (>) 20 in order to avoid division errors with zeros (total of 67,855 reviews). Next, the dataset was further filtered to show where the ratio of helpful_votes to total_votes was at least half (50%) or more. As such, the remaining 61,948 reviews were subject for analysis.
 
 ![](resources/D2_Part1.PNG)
@@ -50,10 +52,37 @@ Next, using this filtered dataset and SQL queries, the aim is to answer the foll
     **139** paid vine reviews were 5 stars, while **32,665** unpaid non-vine reviews were 5 stars.
 
 3. <i><b>What percentage of Vine reviews were 5 stars? What percentage of non-Vine reviews were 5 stars?</i></b><br>
-    Based on the 334 paid vine reviews, 42% (139 reviews) were identified as a 5 star review. Concurrently, of the 61,614 unpaid non-vine reviews, 53% (32,665 reviews) were identified as a 5 star review. <br>
+    Based on the 334 paid Vine reviews, 42% (139 reviews) were identified as a 5 star review. Concurrently, of the 61,614 unpaid non-Vine reviews, 53% (32,665 reviews) were identified as a 5 star review. <br>
 ![](resources/D2_Part5_A.PNG)
 ![](resources/D2_Part5_B.PNG)
 
 
 ## Summary
-Summary: In your summary, state if there is any positivity bias for reviews in the Vine program. Use the results of your analysis to support your statement. Then, provide one additional analysis that you could do with the dataset to support your statement.
+
+Based on the results of the queries and solely comparing the percentage of 5-star reviews between Vine and non-Vine, we can assume that a positivity bias for reviews in the Vine program **do not exist**. In fact, the 42% of 5-star paid Vine reviews is about 11% less than the 53% of 5-star unpaid non-Vine reviews. With the lower percentage, there is no indicator of bias. 
+
+However, I think it's important to consider that of the <i><b>61,948 total reviews</i></b>, 99.5% of the dataset was bucketed as an unpaid non-Vine review. The other 0.5% (the 334 paid Vine reviews) was subject for our reporting. Hence, it's difficult to make a sounding conclusion about the data.
+
+Further, I think in order to strengthen the conclusion if a positivity bias exists, we could do a few things. One, I think we can gather more data related to paid Vine reviews or filter the unpaid non-Vine reviews. Either way, I think it's necessary to have similar sample sizes of the two different buckets. Also, we could check if similar percentages exist across all the star reviews (i.e. 4-star, 3-star, etc.) to detect for other possible positivity bias.
+
+
+---- 
+## Challenges
+
+* Uploading the `vine_table.csv` file to the Github repository was causing an issue. 
+
+Due to the size of the csv file, I originally tried to push it to the repository using `git lfs track "*.csv` and was prompted with the following error:
+
+<insert screen shot>
+    
+It seems that I had exceeded the <x> loading capacity,
+    worked with the TA to try a work around 
+    (1) tried to delete csv files from older modules to free-up space in github - but the .gitattributes still exists
+    cloned the repository , git pull, did the uninstall , tried the git push
+    
+    tried doing a lfs uninstall 
+
+
+
+As a solution: I have temporarily made the csv file available using the Amazon S3 service, with the file available for download here:
+https://janineyoro-bucket.s3.amazonaws.com/vine_table.csv
