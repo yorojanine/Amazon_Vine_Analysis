@@ -20,7 +20,7 @@ In this report, there were many moving pieces that came into play:
       - using `pyspark.sql.functions`, the data can be loaded into a dataframe and the transformation process can begin
       - different dataframes are created to match the tables that will be created in pgAdmin
 3.  Switching over to pgAdmin, a new server was created that will use the Amazon RDS endpoint as the host. Then, it's a matter of creating a database that will hold all the different tables to be created. For the purpose of this portion of the challenge, I created a database named "deliverable1". Using the schema provided, four tables were built to reflect its respective columns. ![](resources/D1_createtable.PNG) 
-4.  Toggling back to the notebook, a new code block was written to connect to the AWS RDS instance to PostgreSQL so that it can write the data/dataframe to its table.
+4.  Toggling back to the notebook, a new code block was written to connect to the AWS RDS instance so that it can write the data/dataframe to its table, and for PostgreSQL(pgAdmin) to view it.
      -  For two of the dataframes, they were able to write to their respective table without issue. ![](resources/D1_customer.PNG) ![](resources/D1_review.PNG) 
      -  However, I ran into a few challenges with the remaining two and spent a good majority of time trying to troubleshoot.
      -  For the products_table, I kept receiving an error due to duplicate values. However, within the code, I had included .drop_duplicates() - so I was unsure of how I was getting that error. So I tried trimming the product_id and product_title, in case there was white space being accounted. However, that still provided me errors. So, next I wanted to check which values and how many were actually hitting as a duplicate. So I ran a code block to check those counts and sure enough, I had at least two product ids that had either 354 duplicates or 404 dupes. In order to fix this I had to add subset in my code `.drop_duplicates(subset = ["product_id"])`
@@ -28,13 +28,14 @@ In this report, there were many moving pieces that came into play:
         ![](resources/D1_product.PNG)
      -  Next, I was having issues related to the vine_table about datatypes mismatching. So I applied to the following as part of troubleshoot: ![](resources/TroubleVine.PNG) 
         ![](resources/D1_vine.PNG)
-5.    With all the dataframes writing into the pgAdmin tables, it's now available to be queried and formulate an analysis/reporting of the results.
+5.    With all the dataframes writing into the tables in AWS RDS, it's now available to be queried and formulate an analysis/reporting of the results in pgAdmin.
 
 ---- 
 ## Results
-Using our knowledge of PySpark, Pandas, or SQL, we needed to determine if there was any bias towards reviews that were written as part of the Vine program. 
+Using our knowledge of PySpark, Pandas, or SQL, we needed to determine if there was any bias towards reviews that were written as part of the Vine program. For this analysis,
+I choose SQL to continue with the reporting.
 
-In the original dataset (vine_table), there were a total of 4,850,360 sports reviews. In order for the data to be helpful, filtering was applied to look at total_votes equal (=) or greater than (>) 20 in order to avoid division errors with zeros. Next, the dataset was further filtered to show where the ratio of helpful_votes to total_votes was at least half (50%) or more. As such, the remaining 61,948 reviews were subject for analysis.
+In the original dataset (vine_table), there were a total of 4,850,360 sports reviews. In order for the data to be helpful, filtering was applied to look at total_votes equal (=) or greater than (>) 20 in order to avoid division errors with zeros (total of 67,855 reviews). Next, the dataset was further filtered to show where the ratio of helpful_votes to total_votes was at least half (50%) or more. As such, the remaining 61,948 reviews were subject for analysis.
 
 ![](resources/D2_Part1.PNG)
 ![](resources/D2_Part2.PNG)
